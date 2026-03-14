@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Production</h1>
+
+<div class="card">
+    <h2>Create Production Order</h2>
+
+    <form>
+
+        <div class="form-group">
+            <label>Product</label>
+            <select>
+                <option>Select product</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number">
+        </div>
+
+        <div class="form-group">
+            <label>Production Date</label>
+            <input type="date">
+        </div>
+
+        <button class="btn btn-primary">Create Order</button>
+
+    </form>
+</div>
+
+<br>
+
+<div class="card">
+    <h2>Production Orders</h2>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- production rows will appear here -->
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}

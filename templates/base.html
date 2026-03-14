@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Windows App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="app">
+
+        <div class="topbar">
+            <h1>My App</h1>
+        </div>
+
+        <div class="container">
+            <div class="sidebar">
+                <a href="/">Home</a>
+                <a href="/customers">Customers</a>
+                <a href="/products">Products</a>
+                <a href="/production">Production</a>
+                <a href="/orders">Orders</a>
+            </div>
+            
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

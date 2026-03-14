@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-header">Add Product</h2>
+
+<div class="card">
+    <form onsubmit="addProduct(event)">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="name" type="text" required>
+        </div>
+
+        <div class="form-group">
+            <label>Product Type</label>
+            <select id="product_type" required>
+                <option value="">Select type</option>
+                <option value="raw_material">Raw</option>
+                <option value="finished">Finished</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Unit</label>
+            <select id="unit" required>
+                <option value="">Select unit</option>
+                <option value="kg">Kg</option>
+                <option value="ton">Ton</option>
+                <option value="piece">Piece</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Product</button>
+
+    </form>
+</div>
+
+<h2 class="page-header">Stored Products</h2>
+
+<div class="card">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Unit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="products-table-body">
+        </tbody>
+    </table>
+</div>
+
+<div id="edit-product-modal" style="display:none">
+
+<h2>Edit Product</h2>
+
+<form onsubmit="updateProduct(event)">
+    
+<input type="hidden" id="edit-id">
+
+<div class="form-group">
+<label>Name</label>
+<input type="text" id="edit-name">
+</div>
+
+<div class="form-group">
+<label>Type</label>
+<select id="edit-product_type">
+<option value="raw">Raw</option>
+<option value="finished">Finished</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Unit</label>
+<select id="edit-unit">
+<option value="kg">Kg</option>
+<option value="ton">Ton</option>
+<option value="piece">Piece</option>
+</select>
+</div>
+
+<button type="submit">Update</button>
+<button onclick="closeEditProduct()">Cancel</button>
+
+</form>
+</div>
+
+<script src="{{ url_for('static', filename='js/products.js') }}"></script>
+
+{% endblock %}
