@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from .routes.products import products_bp
 from .routes.customers import customers_bp
-from db import get_db_connection
+from .db import get_db_connection
 
 app = Flask(
     __name__,
