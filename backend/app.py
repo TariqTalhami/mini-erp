@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from routes.products import products_bp
-from routes.customers import customers_bp
+from .routes.products import products_bp
+from .routes.customers import customers_bp
 
 app = Flask(
     __name__,
