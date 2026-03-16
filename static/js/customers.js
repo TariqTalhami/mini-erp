@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", loadCustomers);
 
 async function loadCustomers() {
-    const response = await fetch("http://127.0.0.1:5000/api/customers");
+    const response = await fetch("/api/customers");
 
     if (!response.ok) {
         console.error("Server error");
