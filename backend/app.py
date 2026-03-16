@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from .routes.products import products_bp
 from .routes.customers import customers_bp
+from db import get_db_connection
 
 app = Flask(
     __name__,
@@ -9,6 +10,18 @@ app = Flask(
 
 app.register_blueprint(products_bp)
 app.register_blueprint(customers_bp)
+
+@app.route("/test-db")
+def test_db():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT 1")
+        result = cur.fetchone()
+        conn.close()
+        return f"Database OK: {result}"
+    except Exception as e:
+        return f"Database ERROR: {e}"
 
 @app.route("/")
 def home():
