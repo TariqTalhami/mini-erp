@@ -39,7 +39,7 @@ async function addProduct(event) {
     const product_type = document.getElementById("product_type").value;
     const unit = document.getElementById("unit").value;
 
-    const response = await fetch("http://127.0.0.1:5000/api/products", {
+    const response = await fetch("/api/products", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -95,7 +95,7 @@ async function updateProduct(event) {
     const product_type = document.getElementById("edit-product_type").value;
     const unit = document.getElementById("edit-unit").value;
 
-    await fetch(`http://127.0.0.1:5000/api/products/${id}`, {
+    await fetch(`/api/products/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -114,7 +114,7 @@ async function updateProduct(event) {
 
 async function deleteProduct(id) {
 
-    await fetch(`http://127.0.0.1:5000/api/products/${id}`, {
+    await fetch(`/api/products/${id}`, {
         method: "DELETE"
     });
 

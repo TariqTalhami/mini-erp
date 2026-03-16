@@ -39,7 +39,7 @@ async function addCustomer(event) {
     const address = document.getElementById("address").value;
     const phoneNumber = document.getElementById("phoneNumber").value;
 
-    const response = await fetch("http://127.0.0.1:5000/api/customers", {
+    const response = await fetch("/api/customers", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -95,7 +95,7 @@ async function updateCustomer(event) {
     const address = document.getElementById("edit-address").value;
     const phoneNumber = document.getElementById("edit-phoneNumber").value;
 
-    await fetch(`http://127.0.0.1:5000/api/customers/${id}`, {
+    await fetch(`/api/customers/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -114,7 +114,7 @@ async function updateCustomer(event) {
 
 async function deleteCustomer(id) {
 
-    await fetch(`http://127.0.0.1:5000/api/customers/${id}`, {
+    await fetch(`/api/customers/${id}`, {
         method: "DELETE"
     });
 
