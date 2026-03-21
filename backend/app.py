@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from .routes.products import products_bp
 from .routes.customers import customers_bp
+from .routes.inventory import inventory_bp
 from .db import get_db_connection
 
 app = Flask(
@@ -10,6 +11,7 @@ app = Flask(
 
 app.register_blueprint(products_bp)
 app.register_blueprint(customers_bp)
+app.register_blueprint(inventory_bp)
 
 @app.route("/test-db")
 def test_db():
@@ -34,6 +36,10 @@ def products_page():
 @app.route("/customers")
 def customers_page():
     return render_template("customers.html")
+
+@app.route("/inventory")
+def inventory_page():
+    return render_template("inventory.html")
 
 @app.route("/production")
 def prduction_page():

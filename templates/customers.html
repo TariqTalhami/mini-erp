@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Page title for adding a new customer -->
 <h2 class="page-header">Add Customer</h2>
 
 <div class="card">
+    
+    <!-- 
+    Customer Creation Form
+    - When submitted, it calls addCustomer(event) from customers.js
+    - The event is passed to prevent default page reload
+    - Data is collected from inputs and sent to backend API
+    -->
     <form onsubmit="addCustomer(event)">
 
         <div class="form-group">
@@ -21,57 +29,92 @@
             <input type="text" id="phoneNumber" required>
         </div>
 
+         <!-- Submit button triggers addCustomer() -->
         <button type="submit" class="btn btn-primary">Add Customer</button>
 
     </form>
 </div>
 
+<!-- Section title for displaying existing customers -->
 <h2 class="page-header">Customers</h2>
 
 <div class="card">
+
+    <!-- 
+    Customers Data Table
+    - This table is populated dynamically using JavaScript
+    - Data is fetched from the backend API (/api/customers)
+    -->
     <table class="data-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Actions</th>
+                <th>Actions</th> <!-- Edit / Delete buttons -->
             </tr>
         </thead>
+
+        <!-- 
+        Table body:
+        - Filled dynamically by customers.js
+        - Each row represents one customer
+        -->
         <tbody id="customers-table-body">
         </tbody>
     </table>
 </div>
 
+<!-- 
+Edit Customer Modal (Hidden by default)
+- Appears when user clicks "Edit"
+- Pre-filled with selected customer data
+- Submits update to backend
+-->
 <div id="edit-customer-modal" style="display:none">
 
-<h2>Edit Customer</h2>
+    <h2>Edit Customer</h2>
 
-<form onsubmit="updateCustomer(event)">
+    <!-- 
+        Update Form
+        - Calls updateCustomer(event) from customers.js
+        - Sends updated data to backend API
+        -->
+    <form onsubmit="updateCustomer(event)">
     
-<input type="hidden" id="edit-id">
+        <input type="hidden" id="edit-id">
 
-<div class="form-group">
-<label>Name</label>
-<input type="text" id="edit-name">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="edit-name">
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" id="edit-address">
+        </div>
+
+        <div class="form-group">
+            <label>Phone number</label>
+            <input type="text" id="edit-phoneNumber">
+        </div>
+        
+        <!-- Submit updated data -->
+        <button type="submit">Update</button>
+        <button onclick="closeEditCustomer()">Cancel</button>
+
+    </form>
 </div>
 
-<div class="form-group">
-<label>Address</label>
-<input type="text" id="edit-address">
-</div>
-
-<div class="form-group">
-<label>Phone number</label>
-<input type="text" id="edit-phoneNumber">
-</div>
-
-<button type="submit">Update</button>
-<button onclick="closeEditCustomer()">Cancel</button>
-
-</form>
-</div>
-
+<!-- 
+Link to customers.js
+- Contains all frontend logic:
+    • Fetch customers from backend
+    • Add new customer
+    • Update customer
+    • Delete customer
+    • Render table dynamically
+-->
 <script src="{{ url_for('static', filename='js/customers.js') }}"></script>
 
 {% endblock %}

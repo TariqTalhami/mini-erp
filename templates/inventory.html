@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-header">Inventory</h2>
+
+<div class="card">
+    <button type="submit" class="btn btn-primary">Ready Products</button>
+    <button type="submit" class="btn btn-primary">Raw Materials</button>
+</div>
+
+<h2 class="page-header">Inventory</h2>
+
+<div class="card">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Unit</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="products-table-body">
+        </tbody>
+    </table>
+</div>
+
+<script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+
+{% endblock %}

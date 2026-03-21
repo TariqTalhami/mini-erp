@@ -1,26 +1,50 @@
+<!--
+Main Layout Template (Base Template)
+
+This file defines the overall structure of the application UI.
+All other pages extend this template and inject their own content
+into the "content" block.
+
+It includes:
+- Top navigation bar
+- Sidebar navigation
+- Main content display area
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>My Windows App</title>
+
+    <!-- Link to global CSS styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
+    <!-- Main application wrapper -->
     <div class="app">
 
+        <!-- Top bar: displays application title -->
         <div class="topbar">
-            <h1>My App</h1>
+            <h1>Academy</h1>
         </div>
 
         <div class="container">
+
+            <!-- Sidebar navigation:
+                 Contains links to different sections of the app -->
             <div class="sidebar">
                 <a href="/">Home</a>
                 <a href="/customers">Customers</a>
                 <a href="/products">Products</a>
+                <a href="/inventory">Inventory</a>
                 <a href="/production">Production</a>
                 <a href="/orders">Orders</a>
             </div>
             
+            <!-- Content area:
+                 Child templates inject their page-specific HTML here
+                 using Jinja template inheritance -->
             <div class="content">
                 {% block content %}{% endblock %}
             </div>
