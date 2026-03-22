@@ -1,122 +1,97 @@
-document.addEventListener("DOMContentLoaded", loadInventory);
+// Load products when page opens
+document.addEventListener("DOMContentLoaded", loadProducts);
 
-async function loadInventory() {
+
+// ================= LOAD PRODUCTS =================
+async function loadProducts() {
     const response = await fetch("/api/products");
-
-    if (!response.ok) {
-        console.error("Server error");
-        return;
-    }
-
     const products = await response.json();
 
-    console.log(products)
-
-    const tableBody = document.getElementById("products-table-body");
-    tableBody.innerHTML = "";
+    const select = document.getElementById("product-select");
+    select.innerHTML = "";
 
     products.forEach(product => {
+        select.innerHTML += `
+            <option value="${product.id}">
+                ${product.name}
+            </option>
+        `;
+    });
+}
+
+
+// ================= LOAD INVENTORY =================
+async function loadInventory() {
+    const productId = document.getElementById("product-select").value;
+
+    // Get stock
+    const stockRes = await fetch(`/api/inventory/${productId}`);
+    const stockData = await stockRes.json();
+
+    document.getElementById("stock-value").innerText = stockData.stock;
+
+    // Get history
+    const historyRes = await fetch(`/api/inventory/history/${productId}`);
+    const history = await historyRes.json();
+
+    const tableBody = document.getElementById("history-table-body");
+    tableBody.innerHTML = "";
+
+    history.forEach(item => {
         tableBody.innerHTML += `
             <tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.product_type}</td>
-                <td>${product.unit}</td>
-                <td>Actual Stock</td>
-                <td>
-                    <button onclick="openEditProduct(${product.id}, '${product.name}', '${product.product_type}', '${product.unit}')">Add Log</button>
-                </td>
+                <td>${item.id}</td>
+                <td>${item.quantity}</td>
+                <td>${item.movement_type}</td>
+                <td>${item.reference_id || ""}</td>
+                <td>${new Date(item.created_at).toLocaleString()}</td>
             </tr>
         `;
     });
 }
 
-async function addProduct(event) {
 
-    event.preventDefault();
+// ================= ADD STOCK =================
+async function addStock() {
+    const productId = document.getElementById("product-select").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+    const reference = document.getElementById("reference").value;
 
-    const name = document.getElementById("name").value;
-    const product_type = document.getElementById("product_type").value;
-    const unit = document.getElementById("unit").value;
-
-    const response = await fetch("/api/products", {
+    await fetch("/api/inventory/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            name: name,
-            product_type: product_type,
-            unit: unit
+            product_id: productId,
+            quantity: quantity,
+            reference_id: reference
         })
     });
 
-    if (!response.ok) {
-        console.error("Server error");
-        return;
-    }
-
-    const result = await response.json();
-    console.log(result);
-
-    loadProducts();
+    // Refresh data
+    loadInventory();
 }
 
-function openEditProduct(id, name, product_type, unit) {
 
-    document.getElementById("edit-id").value = id;
-    document.getElementById("edit-name").value = name;
-    document.getElementById("edit-product_type").value = product_type;
-    document.getElementById("edit-unit").value = unit;
+// ================= REMOVE STOCK =================
+async function removeStock() {
+    const productId = document.getElementById("product-select").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+    const reference = document.getElementById("reference").value;
 
-    document.getElementById("edit-product-modal").style.display = "block";
-
-    console.log("inside open function");
-
-}
-
-const editForm = document.getElementById("edit-product-form");
-
-if (editForm) {
-    editForm.addEventListener("submit", updateProduct);
-}
-
-function closeEditProduct() {
-    document.getElementById("edit-product-modal").style.display = "none";
-}
-
-async function updateProduct(event) {
-
-    event.preventDefault();
-
-    const id = document.getElementById("edit-id").value;
-
-    const name = document.getElementById("edit-name").value;
-    const product_type = document.getElementById("edit-product_type").value;
-    const unit = document.getElementById("edit-unit").value;
-
-    await fetch(`/api/products/${id}`, {
-        method: "PUT",
+    await fetch("/api/inventory/remove", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            name,
-            product_type,
-            unit
+            product_id: productId,
+            quantity: quantity,
+            reference_id: reference
         })
     });
 
-    document.getElementById("edit-product-modal").style.display = "none";
-
-    loadProducts();
-}
-
-async function deleteProduct(id) {
-
-    await fetch(`/api/products/${id}`, {
-        method: "DELETE"
-    });
-
-    loadProducts();
+    // Refresh data
+    loadInventory();
 }
