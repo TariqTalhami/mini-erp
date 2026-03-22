@@ -161,3 +161,26 @@ body {
     gap: 10px;
     margin-top: 10px;
 }
+
+/* Inventory related*/
+.inventory-container {
+    display: flex;
+    gap: 20px;
+}
+
+.inventory-left {
+    width: 40%;
+    overflow-y: auto;
+}
+
+.inventory-right {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Highlight selected row */
+.selected-row {
+    background-color: #d3e3ff;
+}

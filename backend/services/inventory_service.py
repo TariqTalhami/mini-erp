@@ -1,7 +1,8 @@
 from ..models.inventory_model import (
     insert_movement,
     get_product_stock,
-    get_movements
+    get_movements,
+    get_products_with_stock
 )
 
 # Add stock (e.g. purchase, production)
@@ -53,3 +54,19 @@ def get_inventory_history(product_id):
         })
 
     return movements
+
+# ================= SERVICE: FORMAT PRODUCTS WITH STOCK =================
+def get_products_stock_list():
+    rows = get_products_with_stock()
+
+    products = []
+
+    for row in rows:
+        products.append({
+            "id": row[0],
+            "name": row[1],
+            "type": row[2],
+            "stock": float(row[3])  # convert numeric to float for JSON
+        })
+
+    return products

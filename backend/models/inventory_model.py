@@ -53,3 +53,28 @@ def get_movements(product_id):
     conn.close()
 
     return rows
+
+# ================= GET ALL PRODUCTS WITH STOCK =================
+def get_products_with_stock():
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT 
+            p.id,
+            p.name,
+            p.product_type,
+            COALESCE(SUM(im.quantity), 0) as stock
+        FROM products p
+        LEFT JOIN inventory_movements im 
+            ON p.id = im.product_id
+        GROUP BY p.id, p.name, p.product_type
+        ORDER BY p.id
+    """)
+
+    rows = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return rows

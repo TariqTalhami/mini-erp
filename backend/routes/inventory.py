@@ -3,7 +3,8 @@ from ..services.inventory_service import (
     add_stock,
     remove_stock,
     get_stock,
-    get_inventory_history
+    get_inventory_history,
+    get_products_stock_list
 )
 
 inventory_bp = Blueprint("inventory", __name__)
@@ -49,3 +50,9 @@ def remove_inventory():
 def inventory_history(product_id):
     history = get_inventory_history(product_id)
     return jsonify(history)
+
+# ================= ROUTE: PRODUCTS WITH STOCK =================
+@inventory_bp.route("/api/products-with-stock", methods=["GET"])
+def products_with_stock():
+    products = get_products_stock_list()
+    return jsonify(products)

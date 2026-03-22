@@ -4,61 +4,80 @@
 
 <h2 class="page-header">Inventory</h2>
 
-<!-- ================= PRODUCT SELECTION ================= -->
-<div class="card">
-    <div class="form-group">
-        <label>Select Product</label>
-        <select id="product-select"></select>
+<div class="inventory-container">
+
+    <!-- ================= LEFT SIDE ================= -->
+    <div class="inventory-left card">
+
+        <h3>Products</h3>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="products-table-body"></tbody>
+        </table>
+
     </div>
 
-    <button onclick="loadInventory()" class="btn btn-primary">Load Inventory</button>
-</div>
+    <!-- ================= RIGHT SIDE ================= -->
+    <div class="inventory-right">
 
-<!-- ================= CURRENT STOCK ================= -->
-<div class="card">
-    <h3>Current Stock</h3>
-    <p id="stock-value">0</p>
-</div>
+        <!-- Selected Product Info -->
+        <div class="card">
+            <h3 id="selected-product-name">Select a product</h3>
+            <p>Stock: <span id="stock-value">0</span></p>
+        </div>
 
-<!-- ================= ADD / REMOVE STOCK ================= -->
-<div class="card">
+        <!-- Add / Remove -->
+        <div class="card">
 
-    <h3>Update Stock</h3>
+            <h3>Update Stock</h3>
 
-    <div class="form-group">
-        <label>Quantity</label>
-        <input type="number" id="quantity">
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="quantity">
+            </div>
+
+            <div class="form-group">
+                <label>Reference</label>
+                <input type="text" id="reference">
+            </div>
+
+            <button onclick="addStock()" class="btn btn-success">Add</button>
+            <button onclick="removeStock()" class="btn btn-danger">Remove</button>
+
+        </div>
+
+        <!-- Movement History -->
+        <div class="card">
+
+            <h3>Movement History</h3>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Qty</th>
+                        <th>Type</th>
+                        <th>Ref</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="history-table-body"></tbody>
+            </table>
+
+        </div>
+
     </div>
 
-    <div class="form-group">
-        <label>Reference (optional)</label>
-        <input type="text" id="reference">
-    </div>
-
-    <button onclick="addStock()" class="btn btn-success">Add Stock</button>
-    <button onclick="removeStock()" class="btn btn-danger">Remove Stock</button>
-
 </div>
 
-<!-- ================= MOVEMENT HISTORY ================= -->
-<h3 class="page-header">Movement History</h3>
-
-<div class="card">
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Quantity</th>
-                <th>Type</th>
-                <th>Reference</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="history-table-body"></tbody>
-    </table>
-</div>
-
-<!-- ================= JS ================= -->
 <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
 
 {% endblock %}
