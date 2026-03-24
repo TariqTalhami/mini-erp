@@ -10,9 +10,23 @@ body {
 }
 
 .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #2c3e50;
     color: white;
-    padding: 10px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.topbar-right a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #e74c3c;
 }
 
 .container {

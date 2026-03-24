@@ -26,7 +26,14 @@ It includes:
 
         <!-- Top bar: displays application title -->
         <div class="topbar">
+            <!-- LEFT: App title -->
             <h1>Academy</h1>
+
+            <!-- RIGHT: Username + Logout -->
+            <div class="topbar-right">
+                <span>👤 {{ session.username }}</span>
+                <a href="/logout">Logout</a>
+            </div>
         </div>
 
         <div class="container">
