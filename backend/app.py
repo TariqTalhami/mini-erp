@@ -5,6 +5,7 @@ from .routes.products import products_bp
 from .routes.customers import customers_bp
 from .routes.inventory import inventory_bp
 from .routes.orders import orders_bp
+from .routes.routing import routing_bp
 from .db import get_db_connection
 
 app = Flask(
@@ -25,6 +26,7 @@ app.register_blueprint(products_bp)
 app.register_blueprint(customers_bp)
 app.register_blueprint(inventory_bp)
 app.register_blueprint(orders_bp)
+app.register_blueprint(routing_bp)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -76,6 +78,11 @@ def prduction_page():
 @login_required
 def orders_page():
     return render_template("orders.html")
+
+@app.route("/routing")
+@login_required
+def routing_page():
+    return render_template("routing.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Routing Management</h2>
+
+<label>Select Product:</label>
+<select id="productSelect"></select>
+
+<button onclick="loadRouting()">Load Routing</button>
+
+<hr>
+
+<h3>Steps</h3>
+
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Work Center</th>
+            <th>ٌPrimary Raw Material</th>
+            <th>ٌSecondary Raw Material</th>
+            <th>Time (min)</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody id="stepsTable"></tbody>
+</table>
+
+<br>
+
+<button onclick="addStep()">Add Step</button>
+<button onclick="saveRouting()">Save Routing</button>
+
+<script src="/static/js/routing.js"></script>
+{% endblock %}
